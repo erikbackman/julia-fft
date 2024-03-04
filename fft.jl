@@ -35,15 +35,17 @@ wavwrite(noisy, "noisy.wav", Fs=fs)
 
 fhat = fft(y.+0.0im)
 
+# recall that the amplitude of the signal is encoded as the magnitude (use abs)
+# of the complex numbers in fhat, whilst the phase is as the angle.
 x = LinRange(0.0, 1.0, fs)
 p_original = plot(x, y, label = "clean")
 p_noisy = plot(x, noisy, label = "added noise")
-p_bins = plot(x, abs.(fhat), label = "bins")
+p_bins = plot(x, abs.(fhat), label = "bins") # plot the amplitude
 
-## 0 for elements below 100 power and 1 otherwise
+## 0 for elements below 100 amplitude and 1 otherwise
 indices = abs.(fhat).>100;
 
-## multiplying fhat by indices zeroes out the elements below 100 power
+## multiplying fhat by indices zeroes out the elements below 100 amplitude
 fhat = fhat.*indices;
 ## invert to recover the signal
 fixed = real(ifft(clean))
