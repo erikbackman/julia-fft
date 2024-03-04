@@ -48,7 +48,7 @@ indices = abs.(fhat).>100;
 ## multiplying fhat by indices zeroes out the elements below 100 amplitude
 fhat = fhat.*indices;
 ## invert to recover the signal
-fixed = real(ifft(clean))
+fixed = real(ifft(fhat))
 p_fixed = plot(x, fixed, label = "fixed")
 
 p = plot(p_original,p_noisy,p_bins, p_fixed , layout = (2,2))
