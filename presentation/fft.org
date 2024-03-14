@@ -59,7 +59,7 @@ w_{N} = e^{-i2 \pi/N}
 \end{equation*}
 #+BEAMER: \pause
 \begin{equation*}
-A =
+W =
 \begin{bmatrix}
   w_{4}^{0} & w_{4}^{0} & w_{4}^{0} & w_{4}^{0} \\
   w_{4}^{0} & w_{4}^{1} & w_{4}^{2} & w_{4}^{4} \\
@@ -79,7 +79,7 @@ F_{k} = \sum_{n=0}^{N-1} f_{n} e^{(-i2 \pi nk)/N} = \sum_{n=0}^{N-1} f_{n} w^{k}
 \end{equation*}
 
 \begin{equation*}
-A =
+W =
 \begin{bmatrix}
   w_{N}^{0} & w_{N}^{0} & w_{N}^{0} & \dots & w_{N}^{0} \\
   w_{N}^{0} & w_{N}^{1} & w_{N}^{2} & \dots & w_{N}^{N-1} \\
@@ -90,7 +90,7 @@ A =
 \end{equation*}
 
 \begin{equation*}
-F = Af
+F = Wf
 \end{equation*}
 
 \begin{equation*}
@@ -98,6 +98,15 @@ F_{2} = f_{0}e^{-i2 \pi (2)0} + f_{1}e^{-i2 \pi (2)1} + \dots + f_{N-1}e^{-i2 \p
 \end{equation*}
 \(N - 1\) komplexa additioner och \(N\) komplexa multiplicationer för \(F_{k}\)
 Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
+
+** DFT
+\begin{equation*}
+F = Wf
+\end{equation*}
+
+\begin{equation*}
+f = W^{-1}F
+\end{equation*}
 
 ** FFT
 

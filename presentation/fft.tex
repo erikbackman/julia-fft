@@ -1,4 +1,4 @@
-% Created 2024-03-15 Fri 00:09
+% Created 2024-03-15 Fri 00:15
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
@@ -32,13 +32,13 @@
 
 \maketitle
 \section{Intro}
-\label{sec:org48edd1e}
+\label{sec:org79b13eb}
 
-\begin{frame}[label={sec:orgd5b1e7f}]{Fourier Transform}
+\begin{frame}[label={sec:org5204ad8}]{Fourier Transform}
 \[ \hat{f}(u) = \int_{-\infty}^{\infty} f(x)e^{-i2 \pi ut}dt \]
 \end{frame}
 
-\begin{frame}[label={sec:orgfce5d6f}]{DFT}
+\begin{frame}[label={sec:org1596679}]{DFT}
 \begin{equation*}
 \begin{aligned}[c]
 f &=
@@ -66,7 +66,7 @@ F_{k} &= \sum_{n=0}^{N-1} f_{n} e^{(-i2 \pi nk)/N} \\
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org8312b61}]{DFT}
+\begin{frame}[label={sec:orgf0c6cea}]{DFT}
 \(N = 4\)
 
 \begin{align*}
@@ -78,7 +78,7 @@ w_{N} = e^{-i2 \pi/N}
 \end{equation*}
 \pause
 \begin{equation*}
-A =
+W =
 \begin{bmatrix}
   w_{4}^{0} & w_{4}^{0} & w_{4}^{0} & w_{4}^{0} \\
   w_{4}^{0} & w_{4}^{1} & w_{4}^{2} & w_{4}^{4} \\
@@ -91,13 +91,13 @@ F = Af
 \end{equation*}
 \end{frame}
 
-\begin{frame}[label={sec:org183e4c4}]{DFT}
+\begin{frame}[label={sec:org460ada6}]{DFT}
 \begin{equation*}
 F_{k} = \sum_{n=0}^{N-1} f_{n} e^{(-i2 \pi nk)/N} = \sum_{n=0}^{N-1} f_{n} w^{k}
 \end{equation*}
 
 \begin{equation*}
-A =
+W =
 \begin{bmatrix}
   w_{N}^{0} & w_{N}^{0} & w_{N}^{0} & \dots & w_{N}^{0} \\
   w_{N}^{0} & w_{N}^{1} & w_{N}^{2} & \dots & w_{N}^{N-1} \\
@@ -108,7 +108,7 @@ A =
 \end{equation*}
 
 \begin{equation*}
-F = Af
+F = Wf
 \end{equation*}
 
 \begin{equation*}
@@ -118,7 +118,17 @@ F_{2} = f_{0}e^{-i2 \pi (2)0} + f_{1}e^{-i2 \pi (2)1} + \dots + f_{N-1}e^{-i2 \p
 Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
 \end{frame}
 
-\begin{frame}[label={sec:org477dccb}]{FFT}
+\begin{frame}[label={sec:orgbc6d34e}]{DFT}
+\begin{equation*}
+F = Wf
+\end{equation*}
+
+\begin{equation*}
+f = W^{-1}F
+\end{equation*}
+\end{frame}
+
+\begin{frame}[label={sec:org3c72afc}]{FFT}
 \[ F_{k} = \sum_{n=0}^{N-1} f_{n} \cdot e^{-2 \pi i kn/N}\]
 \pause
 \[ w_{N} = e^{\frac{-i2 \pi}{N}} \]
@@ -126,7 +136,7 @@ Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
 \[ F_{k} = \sum_{n=0}^{N-1} f_{n} \cdot w_{N}^{nk} \]
 \end{frame}
 
-\begin{frame}[label={sec:orgdd589d7}]{En N-punkt \(F_{k}\) DFT är N-periodisk}
+\begin{frame}[label={sec:orgd0bf02a}]{En N-punkt \(F_{k}\) DFT är N-periodisk}
 \begin{align*}
 &\begin{aligned}
   F_{k} = \sum_{n=0}^{N-1}f_{n} \cdot w_{N}^{nk}
@@ -142,7 +152,7 @@ Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org176764c}]{Två \(N/2\)-punkt sekvenser med jämna och udda index}
+\begin{frame}[label={sec:orgef3ce70}]{Två \(N/2\)-punkt sekvenser med jämna och udda index}
 \[
   g_{k} = \left\{f_{0}, f_{2}, f_{4}, \dots, f_{N-2}\right\}, \hspace{0.5em}
   h_{k} = \left\{f_{1}, f_{3}, f_{5}, \dots, f_{N-1}\right\} 
@@ -161,7 +171,7 @@ F_{k} &= \sum_{n=0}^{N/2 - 1}f_{2n}w_{N}^{2nk} + \sum_{n=0}^{N/2 -
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org52f1586}]{FFT}
+\begin{frame}[label={sec:orgfa6f4f9}]{FFT}
 \[ F_{k} = G_{k} + W_{N}^{k}H_{k} \]
 
 \(G_{k}\) och \(H_{k}\) är \(N/2\)-punkt DFTs och därmed \(N/2\) periodiska så
@@ -177,7 +187,7 @@ Så att
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:orgbb7cc38}]{FFT}
+\begin{frame}[label={sec:orge9f65b9}]{FFT}
 Varje steg kräver
 \begin{itemize}
 \item \(N/2\) komplexa multiplikationer
@@ -187,7 +197,7 @@ Varje steg kräver
 Komplexitet: \(O(N \log_2{N})\)
 \end{frame}
 
-\begin{frame}[label={sec:orgab39df4},fragile]{FFT: Implementation}
+\begin{frame}[label={sec:org958a1fd},fragile]{FFT: Implementation}
  \begin{minted}[]{julia}
 function fft(f)
     N = length(f)
@@ -209,7 +219,7 @@ end
 \end{minted}
 \end{frame}
 
-\begin{frame}[label={sec:org468339d}]{Invers DFT}
+\begin{frame}[label={sec:orgbc9c693}]{Invers DFT}
 \begin{align*}
 f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{i2 \pi nk}
 \end{align*}
@@ -230,7 +240,7 @@ f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{i2 \pi nk}
 \newpage
 \end{frame}
 
-\begin{frame}[label={sec:org617bb55},fragile]{Invers DFT: Implementation}
+\begin{frame}[label={sec:org6f303dd},fragile]{Invers DFT: Implementation}
  \begin{minted}[]{julia}
 function ifft(a)
     a = conj.(a)
