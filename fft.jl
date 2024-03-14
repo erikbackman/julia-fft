@@ -1,36 +1,21 @@
 using WAV, Plots, Noise
 
-function fft(a)
-    y1 = Any[]; y2 = Any[]
-    n = length(a)
-    if n == 1 return a end
-    wn(n) = exp(-2*π*im/n) # twiddle factor
-    y_even = fft(a[1:2:end])
-    y_odd = fft(a[2:2:end])
-    w = 1
-    for k in 1:Int(n/2)
-        push!(y1, y_even[k] + w*y_odd[k])
-        push!(y2, y_even[k] - w*y_odd[k])
-        w = w*wn(n)
-    end
-    return vcat(y1,y2)
-end
-
-# in place impl
-function fft2(p)
-    n = length(p)
-    if n == 1 return p end
-    w = exp(-2*pi*im/n)
-    y_even = fft2(p[1:2:end])
-    y_odd = fft2(p[2:2:end])
-    y = zeros(Complex{Float64}, n)
+function fft(f)
+    N = length(f)
+    if N == 1 return f end
+    N_half = Int(N/2)
+    w = exp(-2π*im/N)
+    G = fft(f[1:2:end])
+    H = fft(f[2:2:end])
+    F = zeros(Complex{Float64}, N)
     wk = 1;
-    for k in 1:Int(n/2)
-        y[k] = y_even[k] + wk*y_odd[k]
-        y[k + Int(n/2)] = y_even[k] - wk*y_odd[k]
-        wk = wk*w
+    for k in 1:N_half
+	wHk = wk*H[k]
+	F[k] = G[k] + wHk
+	F[k + N_half] = G[k] - wHk
+	wk = wk*w
     end
-    return y
+    return F
 end
 
 function ifft(a)
@@ -40,28 +25,32 @@ function ifft(a)
     a = a./length(a)
 end
 
+N = 2^13
 fs = 2^13 # sampling frequency
+#fs = 44100
+
 t = 0.0:1/fs:prevfloat(1.0) # time (prevfloat(1.0) = 0.99999999999999)
+#t = 0:1/fs:(N - 1)/fs
 f = 1e3
+#f = 440.0
 y = sin.(2pi * f * t) * 0.1 # 1kHz sine tone
 
 noisy = add_gauss(y);
 ## write clean and noisy to file
-#wavwrite(y, "clean.wav", Fs=fs)
-#wavwrite(noisy, "noisy.wav", Fs=fs)
+wavwrite(y, "clean.wav", Fs=fs)
+wavwrite(noisy, "noisy.wav", Fs=fs)
 
-#fhat = fft(y.+0.0im)
-fhat = fft2(y.+0.0im)
+## compute DFT
+fhat = fft(y.+0.0im)
 
-# recall that the amplitude of the signal is encoded as the magnitude (use abs)
-# of the complex numbers in fhat, whilst the phase as the angle.
-x = LinRange(0.0, 1.0, fs)
+# plot
 p_original = plot(y, label = "clean", xlabel = "sampel index", ylabel="s[i]")
 p_noisy = plot(noisy, label = "added noise", xlabel = "sampel index", ylabel="s[i]")
-p_bins = plot(abs.(fhat)[1:4000], label = "fft", xlabel = "freq index", ylabel="mag") # plot the amplitude
+p_bins = plot(abs.(fhat)[1:4000], label = "fft", xlabel = "freq index", ylabel="mag",
+              line = :stem, marker = :o, color=:black)
 
 ## 0 for elements below 100 amplitude and 1 otherwise
-indices = abs.(fhat).>20;
+indices = abs.(fhat).>10;
 
 ## multiplying fhat by indices zeroes out the elements below 100 amplitude
 fhat = fhat.*indices;
@@ -74,7 +63,7 @@ savefig(p, "plot.png")
 display(p)
 
 # write fixed audio to file
-#wavwrite(fixed, "fixed.wav", Fs=fs)
+wavwrite(fixed, "fixed.wav", Fs=fs)
 #yclean, fs = wavread("fixed.wav")
 
 function fftshift(x)
