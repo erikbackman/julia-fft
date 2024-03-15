@@ -58,26 +58,34 @@ F_{k} &= \sum_{n=0}^{N-1} f_{n} e^{(-i2 \pi nk)/N} \\
 w_{N} = e^{-i2 \pi/N}
 \end{equation*}
 #+BEAMER: \pause
-\begin{equation*}
-W =
+\begin{gather*}
+  \begin{bmatrix}
+    \hat{f}_{0} \\
+    \hat{f}_{1} \\
+    \hat{f}_{2} \\
+    \hat{f}_{3}
+    \end{bmatrix}
+=
 \begin{bmatrix}
   w_{4}^{0} & w_{4}^{0} & w_{4}^{0} & w_{4}^{0} \\
   w_{4}^{0} & w_{4}^{1} & w_{4}^{2} & w_{4}^{4} \\
   w_{4}^{0} & w_{4}^{2} & w_{4}^{4} & w_{4}^{6} \\
   w_{4}^{0} & w_{4}^{3} & w_{4}^{6} & w_{4}^{9}
 \end{bmatrix}
-\end{equation*}
+  \begin{bmatrix}
+    f_{0} \\
+    f_{1} \\
+    f_{2} \\
+    f_{3}
+    \end{bmatrix}
+\end{gather*}
 \begin{equation*}
-F = Af
+F = Wf
 \end{equation*}
 
 ** DFT
 # - a_k = f(freq match) -> Fk > 0
 # - y = a_j != ak -> Fk = 0
-\begin{equation*}
-F_{k} = \sum_{n=0}^{N-1} f_{n} e^{(-i2 \pi nk)/N} = \sum_{n=0}^{N-1} f_{n} w^{k}
-\end{equation*}
-
 \begin{equation*}
 W =
 \begin{bmatrix}
@@ -90,7 +98,7 @@ W =
 \end{equation*}
 
 \begin{equation*}
-F = Wf
+F = Wf,  \hspace{0.2em} f = W^{-1}F
 \end{equation*}
 
 \begin{equation*}
@@ -98,15 +106,6 @@ F_{2} = f_{0}e^{-i2 \pi (2)0} + f_{1}e^{-i2 \pi (2)1} + \dots + f_{N-1}e^{-i2 \p
 \end{equation*}
 \(N - 1\) komplexa additioner och \(N\) komplexa multiplicationer för \(F_{k}\)
 Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
-
-** DFT
-\begin{equation*}
-F = Wf
-\end{equation*}
-
-\begin{equation*}
-f = W^{-1}F
-\end{equation*}
 
 ** FFT
 
@@ -195,7 +194,7 @@ end
 
 ** Invers DFT
 \begin{align*}
-f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{i2 \pi nk}
+f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{\frac{i2 \pi}{N}nk}
 \end{align*}
 #+BEAMER: \pause
 \begin{equation*}
@@ -208,7 +207,7 @@ f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{i2 \pi nk}
 #+BEAMER: \pause
 \begin{equation*}
     \frac{1}{N}(\overline{F(\bar{F})})_{k} =
-  \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{\frac{i2 \pi}{N}nk} = (F^{-1}(F))_{k}
+  \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{\frac{i2 \pi}{N}nk} = f_{k}
 \end{equation*}
 
 \newpage
