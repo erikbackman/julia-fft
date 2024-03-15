@@ -1,4 +1,4 @@
-% Created 2024-03-15 Fri 09:03
+% Created 2024-03-15 Fri 09:40
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
@@ -32,13 +32,22 @@
 
 \maketitle
 \section{Intro}
-\label{sec:orgaac504a}
+\label{sec:org9548b81}
 
-\begin{frame}[label={sec:org030ed15}]{Fourier Transform}
+\begin{center}
+\includegraphics[scale=0.1]{./p1.jpg}
+\end{center}  \begin{center}
+\includegraphics[scale=0.1]{./p2.jpg}
+\end{center}
+\begin{center}
+\includegraphics[scale=0.1]{./p3.jpg}
+\end{center}
+
+\begin{frame}[label={sec:org3ad615b}]{Fourier Transform}
 \[ \hat{f}(u) = \int_{-\infty}^{\infty} f(x)e^{-i2 \pi ut}dt \]
 \end{frame}
 
-\begin{frame}[label={sec:orge65f619}]{DFT}
+\begin{frame}[label={sec:org10a2c79}]{DFT}
 \begin{equation*}
 \begin{aligned}[c]
 f &=
@@ -66,7 +75,7 @@ F_{k} &= \sum_{n=0}^{N-1} f_{n} e^{(-i2 \pi nk)/N} \\
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org49763a4}]{DFT}
+\begin{frame}[label={sec:org7fb99f9}]{DFT}
 \(N = 4\)
 
 \begin{align*}
@@ -103,7 +112,7 @@ F = Wf
 \end{equation*}
 \end{frame}
 
-\begin{frame}[label={sec:org7eb7aa8}]{DFT}
+\begin{frame}[label={sec:orga6f6abd}]{DFT}
 \begin{equation*}
 W =
 \begin{bmatrix}
@@ -126,7 +135,7 @@ F_{2} = f_{0}e^{-i2 \pi (2)0} + f_{1}e^{-i2 \pi (2)1} + \dots + f_{N-1}e^{-i2 \p
 Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
 \end{frame}
 
-\begin{frame}[label={sec:org57455f6}]{FFT}
+\begin{frame}[label={sec:org5c34459}]{FFT}
 \[ F_{k} = \sum_{n=0}^{N-1} f_{n} \cdot e^{-2 \pi i kn/N}\]
 \pause
 \[ w_{N} = e^{\frac{-i2 \pi}{N}} \]
@@ -134,7 +143,7 @@ Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
 \[ F_{k} = \sum_{n=0}^{N-1} f_{n} \cdot w_{N}^{nk} \]
 \end{frame}
 
-\begin{frame}[label={sec:org43e5576}]{En N-punkt \(F_{k}\) DFT är N-periodisk}
+\begin{frame}[label={sec:orgd8abace}]{En N-punkt \(F_{k}\) DFT är N-periodisk}
 \begin{align*}
 &\begin{aligned}
   F_{k} = \sum_{n=0}^{N-1}f_{n} \cdot w_{N}^{nk}
@@ -150,7 +159,7 @@ Totalt \(N^{2}\) komplexa multiplicationer. \(O(N^{2})\)
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:orgbb9d639}]{Två \(N/2\)-punkt sekvenser med jämna och udda index}
+\begin{frame}[label={sec:orgf3a2de1}]{Två \(N/2\)-punkt sekvenser med jämna och udda index}
 \[
   g_{k} = \left\{f_{0}, f_{2}, f_{4}, \dots, f_{N-2}\right\}, \hspace{0.5em}
   h_{k} = \left\{f_{1}, f_{3}, f_{5}, \dots, f_{N-1}\right\} 
@@ -169,7 +178,7 @@ F_{k} &= \sum_{n=0}^{N/2 - 1}f_{2n}w_{N}^{2nk} + \sum_{n=0}^{N/2 -
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:orge0eb200}]{FFT}
+\begin{frame}[label={sec:orgf4f9786}]{FFT}
 \[ F_{k} = G_{k} + W_{N}^{k}H_{k} \]
 
 \(G_{k}\) och \(H_{k}\) är \(N/2\)-punkt DFTs och därmed \(N/2\) periodiska så
@@ -185,7 +194,7 @@ Så att
 \end{align*}
 \end{frame}
 
-\begin{frame}[label={sec:org6a95157}]{FFT}
+\begin{frame}[label={sec:orge294a38}]{FFT}
 Varje steg kräver
 \begin{itemize}
 \item \(N/2\) komplexa multiplikationer
@@ -195,7 +204,7 @@ Varje steg kräver
 Komplexitet: \(O(N \log_2{N})\)
 \end{frame}
 
-\begin{frame}[label={sec:orgfe1a6ce},fragile]{FFT: Implementation}
+\begin{frame}[label={sec:orgba0e8ce},fragile]{FFT: Implementation}
  \begin{minted}[]{julia}
 function fft(f)
     N = length(f)
@@ -217,7 +226,7 @@ end
 \end{minted}
 \end{frame}
 
-\begin{frame}[label={sec:org25aeed5}]{Invers DFT}
+\begin{frame}[label={sec:org7904db4}]{Invers DFT}
 \begin{align*}
 f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{\frac{i2 \pi}{N}nk}
 \end{align*}
@@ -238,7 +247,7 @@ f_{k} = F_{k}^{-1} = \frac{1}{N}\sum_{n=0}^{N-1}F_{k}e^{\frac{i2 \pi}{N}nk}
 \newpage
 \end{frame}
 
-\begin{frame}[label={sec:org2fed8f4},fragile]{Invers DFT: Implementation}
+\begin{frame}[label={sec:org336728e},fragile]{Invers DFT: Implementation}
  \begin{minted}[]{julia}
 function ifft(a)
     a = conj.(a)

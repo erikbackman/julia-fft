@@ -14,6 +14,11 @@
 #+COLUMNS: %45ITEM %10BEAMER_ENV(Env) %10BEAMER_ACT(Act) %4BEAMER_COL(Col)
 * Intro
 
+#+ATTR_LATEX: :scale 0.1
+[[./p1.jpg]]
+[[./p2.jpg]]
+[[./p3.jpg]]
+
 ** Fourier Transform
 
 \[ \hat{f}(u) = \int_{-\infty}^{\infty} f(x)e^{-i2 \pi ut}dt \]
